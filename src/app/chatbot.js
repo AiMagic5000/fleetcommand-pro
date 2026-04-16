@@ -12,9 +12,8 @@ export default function Chatbot() {
     s.dataset.webhook = "https://n8n.alwaysencrypted.com/webhook/fc-chatbot"
     s.dataset.logo = "/fc-logo.png"
     s.dataset.accent = "#1e88e5"
-    // Retell voice -- configure after new account created
-    // s.dataset.retellToken = "https://n8n.alwaysencrypted.com/webhook/fc-retell-token"
-    // s.dataset.retellAgent = "agent_XXXXXXXX"
+    s.dataset.retellToken = "https://n8n.alwaysencrypted.com/webhook/fc-retell-token"
+    s.dataset.retellAgent = "agent_86b2174417970acd9de3e37f42"
     document.body.appendChild(s)
   }, [])
 

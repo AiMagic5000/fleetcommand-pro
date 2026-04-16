@@ -963,10 +963,12 @@
   const tipMic = panel.querySelector("#dtTipMic");
   const voiceTip = panel.querySelector("#dtVoiceTip");
 
-  // Hide voice features if no Retell config provided
+  // Show/hide voice features based on Retell config
   if (!CONFIG.retellTokenUrl && !CONFIG.agentId) {
     voiceTipEl.classList.add("hidden");
     btnMicInline.style.display = "none";
+  } else {
+    btnMicInline.style.display = "";
   }
 
   let inCall = false;
