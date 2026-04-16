@@ -6,7 +6,6 @@ const nextConfig = {
   async redirects() {
     return [
       { source: "/index.html", destination: "/", permanent: true },
-      { source: "/fcp-dashboard.html", destination: "/dashboard", permanent: false },
     ]
   },
 }
