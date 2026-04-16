@@ -49,7 +49,7 @@ export default function MobileNav() {
         <a href="/tracking">Live Tracking</a>
         <a href="/help">Help Center</a>
         <a href="/support">Support</a>
-        <a href="/api/tms" className="mobile-nav-cta">Launch Dashboard</a>
+        <a href="/dashboard" className="mobile-nav-cta">Launch Dashboard</a>
       </div>
     </>
   )

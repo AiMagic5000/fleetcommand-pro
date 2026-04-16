@@ -13,7 +13,7 @@ export default function SignInPage() {
       paddingTop: 96,
     }}>
       <SignIn
-        forceRedirectUrl="/api/tms"
+        forceRedirectUrl="/dashboard"
       />
     </div>
   )
