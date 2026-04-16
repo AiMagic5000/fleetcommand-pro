@@ -1,5 +1,7 @@
 import "./globals.css"
 import { ClerkProvider } from "@clerk/nextjs"
+import MobileNav from "./mobile-nav"
+import Chatbot from "./chatbot"
 
 export const metadata = {
   title: "FleetCommand Pro - AI-Powered Fleet Management Platform",
@@ -35,6 +37,9 @@ export default function RootLayout({ children }) {
               <span></span><span></span><span></span>
             </button>
           </nav>
+
+          <MobileNav />
+          <Chatbot />
 
           {children}
 
