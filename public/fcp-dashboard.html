@@ -266,51 +266,11 @@
     </style>
 </head>
 <body>
-    <!-- Auth Loading Screen -->
-    <div id="auth-loading" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%); display: flex; align-items: center; justify-content: center; z-index: 9999;">
-        <div style="text-align: center; color: white;">
-            <div style="font-size: 2rem; font-weight: 700; margin-bottom: 16px;">FleetCommand Pro</div>
-            <div style="font-size: 1rem; opacity: 0.8; margin-bottom: 24px;">Verifying authentication...</div>
-            <div style="width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
-        </div>
-    </div>
-    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+    <div id="root"></div>
 
-    <div id="root" style="display: none;"></div>
-
-    <!-- Auth Check Script -->
     <script>
-        const pk = 'pk_test_c2V0LXJhY2Nvb24tNjguY2xlcmsuYWNjb3VudHMuZGV2JA';
-
-        // Load Clerk and check auth
-        const s = document.createElement('script');
-        s.setAttribute('data-clerk-publishable-key', pk);
-        s.async = true;
-        s.src = 'https://set-raccoon-68.clerk.accounts.dev/npm/@clerk/clerk-js@5/dist/clerk.browser.js';
-        s.addEventListener('load', async () => {
-            await window.Clerk.load();
-            console.log('Dashboard - Clerk loaded, user:', window.Clerk.user);
-            if (window.Clerk.user) {
-                showDashboard();
-            } else {
-                window.location.href = 'index.html';
-            }
-        });
-        document.head.appendChild(s);
-
-        function showDashboard() {
-            document.getElementById('auth-loading').style.display = 'none';
-            document.getElementById('root').style.display = 'block';
-        }
-
         function signOut() {
-            if (window.Clerk) {
-                window.Clerk.signOut().then(() => {
-                    window.location.href = 'index.html';
-                });
-            } else {
-                window.location.href = 'index.html';
-            }
+            window.location.href = '/';
         }
     </script>
 
