@@ -1,34 +1,20 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
-const isPublicRoute = createRouteMatcher([
-  "/",
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-  "/dashboard",
-  "/tracking",
-  "/white-label",
-  "/add-fleet",
-  "/help",
-  "/support",
-  "/terms",
-  "/privacy",
-  "/esign",
-  "/api/(.*)",
-])
-
-export default clerkMiddleware(async (auth, request) => {
+export default function middleware(request) {
   const { pathname } = request.nextUrl
   const hostname = request.headers.get("host") || ""
 
-  // Skip static files and the standalone dashboard HTML
-  if (pathname.startsWith("/_next/") || pathname.startsWith("/favicon") || pathname.endsWith(".html") || pathname.endsWith(".png") || pathname.endsWith(".jpg") || pathname.endsWith(".css") || pathname.endsWith(".js")) {
+  // Skip static files
+  if (
+    pathname.startsWith("/_next/") ||
+    pathname.startsWith("/favicon") ||
+    pathname.endsWith(".html") ||
+    pathname.endsWith(".png") ||
+    pathname.endsWith(".jpg") ||
+    pathname.endsWith(".css") ||
+    pathname.endsWith(".js")
+  ) {
     return NextResponse.next()
-  }
-
-  // Protect dashboard routes
-  if (!isPublicRoute(request)) {
-    await auth.protect()
   }
 
   // Path-based tenant: /t/{slug}/...
@@ -58,7 +44,7 @@ export default clerkMiddleware(async (auth, request) => {
   }
 
   return NextResponse.next()
-})
+}
 
 export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],

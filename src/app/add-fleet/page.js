@@ -12,7 +12,7 @@ export default function AddFleet() {
             tracking, and compliance system. No hardware required.
           </p>
           <div className="hero-btns">
-            <a href="/sign-up" className="btn-primary">Create Your Account</a>
+            <a href="/dashboard" className="btn-primary">Create Your Account</a>
             <a href="#steps" className="btn-outline">See the Steps</a>
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function AddFleet() {
           </p>
         </div>
         <div className="cta-btns">
-          <a href="/sign-up" className="btn-primary">Start Free Trial</a>
+          <a href="/dashboard" className="btn-primary">Start Free Trial</a>
           <a href="/#pricing" className="btn-outline">Compare Plans</a>
         </div>
       </section>
