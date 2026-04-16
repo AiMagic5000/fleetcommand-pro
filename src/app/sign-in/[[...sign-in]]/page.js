@@ -13,7 +13,7 @@ export default function SignInPage() {
       paddingTop: 96,
     }}>
       <SignIn
-        forceRedirectUrl="/fcp-dashboard.html"
+        forceRedirectUrl="/api/tms"
       />
     </div>
   )
