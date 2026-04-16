@@ -13,8 +13,7 @@ export default function SignUpPage() {
       paddingTop: 96,
     }}>
       <SignUp
-        routing="hash"
-        afterSignUpUrl="/dashboard"
+        forceRedirectUrl="/dashboard"
       />
     </div>
   )
