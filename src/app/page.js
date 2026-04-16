@@ -12,7 +12,7 @@ export default function Home() {
               readiness -- built for the companies that move America.
             </p>
             <div className="hero-btns">
-              <a href="/dashboard" className="btn-primary pulse-glow">Start Free Trial</a>
+              <a href="/fcp-dashboard.html" className="btn-primary pulse-glow">Start Free Trial</a>
               <a href="#demo" className="btn-outline" style={{color:"white"}}>Watch Demo</a>
             </div>
           </div>
@@ -273,7 +273,7 @@ export default function Home() {
               <li>Email support</li>
               <li>7-day free trial included</li>
             </ul>
-            <a href="/dashboard" className="btn-primary">Start Free Trial</a>
+            <a href="/fcp-dashboard.html" className="btn-primary">Start Free Trial</a>
           </div>
           <div className="pricing-card featured">
             <div className="badge">Most Popular</div>
@@ -289,7 +289,7 @@ export default function Home() {
               <li>Factoring integration</li>
               <li>Priority phone and chat support</li>
             </ul>
-            <a href="/dashboard" className="btn-primary">Start Free Trial</a>
+            <a href="/fcp-dashboard.html" className="btn-primary">Start Free Trial</a>
           </div>
           <div className="pricing-card">
             <img src="/fc-enterprise-logo.png" alt="FleetCommand Enterprise" style={{height:64,width:"auto",margin:"0 auto 12px",display:"block"}} />
@@ -371,7 +371,7 @@ export default function Home() {
           </p>
         </div>
         <div className="cta-btns">
-          <a href="/dashboard" className="btn-primary">Start Free Trial</a>
+          <a href="/fcp-dashboard.html" className="btn-primary">Start Free Trial</a>
           <a href="/support" className="btn-outline-dark">Talk to Sales</a>
         </div>
       </section>

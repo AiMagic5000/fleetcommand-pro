@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
             <li><a href="/tracking">Live Tracking</a></li>
             <li><a href="/help">Help</a></li>
             <li><a href="/support">Support</a></li>
-            <li><a href="/dashboard" className="nav-cta">Launch Dashboard</a></li>
+            <li><a href="/fcp-dashboard.html" className="nav-cta">Launch Dashboard</a></li>
           </ul>
           <button className="hamburger-btn" id="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
