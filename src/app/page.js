@@ -24,9 +24,9 @@ const STYLE = `
   --term-mute: oklch(0.66 0.012 65);
   --term-rule: oklch(0.30 0.012 65);
 
-  --serif: "Instrument Serif", "Cormorant Garamond", Georgia, serif;
-  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --serif: var(--sans);
+  --mono: var(--sans);
 
   background: var(--paper);
   color: var(--ink);
@@ -71,17 +71,17 @@ const STYLE = `
 }
 
 .fcp-h1 {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(48px, 6.6vw, 96px);
-  line-height: 0.96;
-  letter-spacing: -0.012em;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(44px, 6vw, 84px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
   color: var(--ink);
   margin: 28px 0 0;
 }
 .fcp-h1 em {
-  font-style: italic;
-  background: linear-gradient(transparent 64%, var(--signal) 64% 92%, transparent 92%);
+  font-style: normal;
+  background: linear-gradient(transparent 60%, var(--signal) 60% 92%, transparent 92%);
   padding: 0 0.05em;
 }
 
@@ -123,7 +123,7 @@ const STYLE = `
   font-family: var(--mono); font-size: 12px;
 }
 .fcp-hero-meta dt { color: var(--ink-mute); letter-spacing: 0.14em; text-transform: uppercase; font-size: 10px; margin-bottom: 6px; }
-.fcp-hero-meta dd { font-family: var(--serif); font-size: 32px; line-height: 1; color: var(--ink); margin: 0; font-weight: 400; }
+.fcp-hero-meta dd { font-family: var(--sans); font-size: 30px; line-height: 1; color: var(--ink); margin: 0; font-weight: 800; letter-spacing: -0.02em; }
 
 /* === Terminal panel ===================================================== */
 .fcp-term {
@@ -284,7 +284,7 @@ const STYLE = `
 .fcp-num:last-child { border-right: none; }
 @media (max-width: 900px) { .fcp-num:nth-child(2) { border-right: none; } .fcp-num { border-bottom: 1px solid var(--rule); } }
 .fcp-num-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); }
-.fcp-num-val { font-family: var(--serif); font-weight: 400; line-height: 0.96; color: var(--ink); font-variant-numeric: tabular-nums; }
+.fcp-num-val { font-family: var(--sans); font-weight: 800; line-height: 0.96; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
 .fcp-num-1 .fcp-num-val { font-size: clamp(60px, 8vw, 120px); }
 .fcp-num-2 .fcp-num-val { font-size: clamp(48px, 6vw, 88px); }
 .fcp-num-3 .fcp-num-val { font-size: clamp(48px, 6vw, 88px); }
@@ -296,7 +296,7 @@ const STYLE = `
 .fcp-sec-head { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 64px; }
 @media (max-width: 900px) { .fcp-sec-head { grid-template-columns: 1fr; gap: 24px; } }
 .fcp-sec-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); }
-.fcp-sec-title { font-family: var(--serif); font-weight: 400; font-size: clamp(36px, 4vw, 60px); line-height: 1.02; letter-spacing: -0.01em; margin: 12px 0 0; }
+.fcp-sec-title { font-family: var(--sans); font-weight: 800; font-size: clamp(32px, 3.5vw, 52px); line-height: 1.06; letter-spacing: -0.025em; margin: 12px 0 0; color: var(--ink); }
 .fcp-sec-deck { font-size: 18px; color: var(--ink-2); margin: 0; max-width: 56ch; }
 
 /* === Features (editorial entries) ====================================== */
@@ -324,9 +324,9 @@ const STYLE = `
   color: var(--ink); font-weight: 600;
 }
 .fcp-entry-body h3 {
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(26px, 2.5vw, 36px); line-height: 1.1;
-  margin: 0 0 12px; letter-spacing: -0.005em;
+  font-family: var(--sans); font-weight: 700;
+  font-size: clamp(22px, 2.2vw, 30px); line-height: 1.18;
+  margin: 0 0 12px; letter-spacing: -0.015em; color: var(--ink);
 }
 .fcp-entry-body p { font-size: 16.5px; line-height: 1.6; max-width: 50ch; margin: 0; }
 .fcp-entry-aside {
@@ -489,8 +489,8 @@ const STYLE = `
 }
 .fcp-step:nth-child(2n) { border-right: none; }
 @media (max-width: 768px) { .fcp-step { border-right: none; } }
-.fcp-step-num { font-family: var(--serif); font-size: 72px; line-height: 0.9; color: var(--signal-deep); font-variant-numeric: tabular-nums; }
-.fcp-step-body h4 { font-family: var(--serif); font-weight: 400; font-size: 24px; margin: 0 0 6px; line-height: 1.15; }
+.fcp-step-num { font-family: var(--sans); font-weight: 800; font-size: 64px; line-height: 0.9; color: var(--signal-deep); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.fcp-step-body h4 { font-family: var(--sans); font-weight: 700; font-size: 22px; margin: 0 0 6px; line-height: 1.2; color: var(--ink); letter-spacing: -0.01em; }
 .fcp-step-body p { font-size: 15.5px; margin: 0; }
 .fcp-step-meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule); }
 
@@ -508,7 +508,7 @@ const STYLE = `
 }
 .fcp-tag.fcp-tag-dev { background: var(--signal); color: var(--ink); }
 .fcp-tag.fcp-tag-soon { background: var(--paper-2); color: var(--ink); border: 1px solid var(--rule-strong); }
-.fcp-future-cell h4 { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.15; margin: 20px 0 12px; }
+.fcp-future-cell h4 { font-family: var(--sans); font-weight: 700; font-size: 22px; line-height: 1.2; margin: 20px 0 12px; color: var(--ink); letter-spacing: -0.01em; }
 .fcp-future-cell p { font-size: 15.5px; margin: 0; }
 
 /* === Pricing ============================================================ */
@@ -518,8 +518,8 @@ const STYLE = `
 .fcp-tier:last-child { border-right: none; }
 @media (max-width: 900px) { .fcp-tier { border-right: none; border-bottom: 1px solid var(--rule); } }
 .fcp-tier-mark { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); }
-.fcp-tier h4 { font-family: var(--serif); font-weight: 400; font-size: 32px; margin: 0; line-height: 1.1; }
-.fcp-tier-price { font-family: var(--serif); font-weight: 400; font-size: clamp(56px, 6vw, 84px); line-height: 0.95; color: var(--ink); font-variant-numeric: tabular-nums; }
+.fcp-tier h4 { font-family: var(--sans); font-weight: 700; font-size: 26px; margin: 0; line-height: 1.15; color: var(--ink); letter-spacing: -0.015em; }
+.fcp-tier-price { font-family: var(--sans); font-weight: 800; font-size: clamp(48px, 5.5vw, 72px); line-height: 0.95; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
 .fcp-tier-price small { display: block; font-family: var(--sans); font-size: 13px; color: var(--ink-mute); margin-top: 6px; letter-spacing: 0; line-height: 1.5; }
 .fcp-tier-list { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 10px; }
 .fcp-tier-list li { font-size: 14.5px; color: var(--ink-2); padding-left: 22px; position: relative; }
@@ -555,12 +555,12 @@ const STYLE = `
   .fcp-quote-r2 .fcp-q-meta { border-right: none; border-bottom: 1px solid var(--rule); }
 }
 .fcp-quote blockquote, .fcp-q-body blockquote {
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(22px, 2vw, 30px); line-height: 1.3; letter-spacing: -0.005em;
-  color: var(--ink); margin: 0 0 28px; max-width: 38ch;
+  font-family: var(--sans); font-weight: 500;
+  font-size: clamp(20px, 1.8vw, 26px); line-height: 1.4; letter-spacing: -0.012em;
+  color: var(--ink); margin: 0 0 28px; max-width: 42ch;
 }
 .fcp-q-meta { font-family: var(--mono); font-size: 12px; }
-.fcp-q-meta b { display: block; font-family: var(--sans); font-size: 15px; color: var(--ink); font-weight: 600; letter-spacing: 0; margin-bottom: 4px; }
+.fcp-q-meta b { display: block; font-family: var(--sans); font-size: 15px; color: var(--ink); font-weight: 700; letter-spacing: 0; margin-bottom: 4px; }
 .fcp-q-meta span { color: var(--ink-mute); letter-spacing: 0.06em; text-transform: uppercase; font-size: 11px; }
 
 /* === Demo ============================================================== */
@@ -586,8 +586,8 @@ const STYLE = `
 .fcp-closer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; align-items: end; }
 @media (max-width: 900px) { .fcp-closer-grid { grid-template-columns: 1fr; gap: 32px; } }
 .fcp-closer h2 {
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(48px, 6vw, 96px); line-height: 0.98; letter-spacing: -0.01em;
+  font-family: var(--sans); font-weight: 800;
+  font-size: clamp(40px, 5.2vw, 76px); line-height: 1.02; letter-spacing: -0.025em;
   margin: 0;
 }
 .fcp-closer p { color: var(--ink); max-width: 36ch; margin: 0 0 24px; font-size: 17px; }
@@ -676,10 +676,6 @@ function Gallery() {
 export default function Home() {
   return (
     <>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      />
       <style dangerouslySetInnerHTML={{ __html: STYLE }} />
       <main className="fcp-page">
 

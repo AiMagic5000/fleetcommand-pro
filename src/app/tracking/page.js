@@ -50,12 +50,12 @@ const MAP_CSS = `
   padding: 28px 0 24px;
 }
 .fcp-track-head h1 {
-  font-family: "Instrument Serif", Georgia, serif;
-  font-weight: 400; font-size: clamp(28px, 3vw, 42px);
-  line-height: 1; letter-spacing: -0.01em; margin: 0;
+  font-family: "Inter", -apple-system, sans-serif;
+  font-weight: 800; font-size: clamp(26px, 2.8vw, 38px);
+  line-height: 1.05; letter-spacing: -0.02em; margin: 0;
 }
 .fcp-track-head .fcp-track-eyebrow {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Inter", -apple-system, sans-serif;
   font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
   color: oklch(0.7 0.012 60);
   display: flex; align-items: center; gap: 10px;
@@ -102,7 +102,7 @@ const MAP_CSS = `
 }
 .fcp-search-btn:hover { background: oklch(0.92 0.16 92); }
 .fcp-search-feedback {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Inter", -apple-system, sans-serif;
   font-size: 12px; letter-spacing: 0.06em;
   margin-top: 10px; padding: 8px 12px; border-radius: 4px;
   display: none;
@@ -128,15 +128,16 @@ const MAP_CSS = `
 .fcp-stat:last-child { border-right: none; }
 @media (max-width: 900px) { .fcp-stat:nth-child(2n) { border-right: none; } }
 .fcp-stat-label {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Inter", -apple-system, sans-serif;
   font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
   color: oklch(0.55 0.012 60);
 }
 .fcp-stat-val {
-  font-family: "Instrument Serif", Georgia, serif;
-  font-weight: 400; font-size: 32px; line-height: 1;
+  font-family: "Inter", -apple-system, sans-serif;
+  font-weight: 800; font-size: 28px; line-height: 1;
   margin-top: 6px;
   color: oklch(0.20 0.012 60); font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 /* Map frame */
@@ -158,7 +159,7 @@ const MAP_CSS = `
   position: absolute; top: 12px; left: 12px;
   background: oklch(0.20 0.012 60 / 0.92);
   color: oklch(0.985 0.005 85);
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Inter", -apple-system, sans-serif;
   font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
   padding: 8px 12px;
   display: inline-flex; align-items: center; gap: 10px;
@@ -209,7 +210,7 @@ const MAP_CSS = `
 
 /* Truck list */
 .fcp-list-head {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Inter", -apple-system, sans-serif;
   font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
   color: oklch(0.55 0.012 60);
   margin-bottom: 12px;
@@ -236,9 +237,11 @@ const MAP_CSS = `
 .fcp-badge.t { background: oklch(0.66 0.13 145 / 0.18); color: oklch(0.45 0.13 145); }
 .fcp-badge.r { background: oklch(0.88 0.008 70); color: oklch(0.36 0.01 60); }
 .fcp-card-route {
-  font-family: "Instrument Serif", Georgia, serif; font-size: 19px; line-height: 1.3;
+  font-family: "Inter", -apple-system, sans-serif; font-size: 16px; line-height: 1.35;
+  font-weight: 600;
   color: oklch(0.20 0.012 60);
   margin: 0 0 12px;
+  letter-spacing: -0.01em;
 }
 .fcp-card-route span { color: oklch(0.86 0.17 92); }
 .fcp-card-bar { height: 3px; background: oklch(0.88 0.008 70); border-radius: 2px; margin: 12px 0; overflow: hidden; }
@@ -333,48 +336,40 @@ export default function TrackingPage() {
       map.addControl(new window.maplibregl.NavigationControl({ showCompass: false }), "top-right")
 
       map.once("style.load", () => {
-        // Build canvas marker (yellow disc + truck-ID label)
-        const size = 56
-        const canvas = document.createElement("canvas")
-        canvas.width = size
-        canvas.height = size
-        const ctx = canvas.getContext("2d")
-        ctx.clearRect(0, 0, size, size)
-        ctx.beginPath()
-        ctx.arc(size / 2, size / 2, 24, 0, Math.PI * 2)
-        ctx.fillStyle = "oklch(0.86 0.17 92)"
-        ctx.fill()
-        ctx.lineWidth = 3
-        ctx.strokeStyle = "oklch(0.20 0.012 60)"
-        ctx.stroke()
-        ctx.fillStyle = "oklch(0.20 0.012 60)"
-        ctx.font = "bold 11px ui-monospace, monospace"
-        ctx.textAlign = "center"
-        ctx.textBaseline = "middle"
-        ctx.fillText("FCP", size / 2, size / 2)
-        const imgData = ctx.getImageData(0, 0, size, size)
-        if (!map.hasImage("fcp-truck"))
-          map.addImage("fcp-truck", { width: size, height: size, data: imgData.data })
+        // Truck-shield favicon as marker. Render once into a canvas to grab pixel data.
+        const buildShieldImage = (src, targetW, dim) =>
+          new Promise((resolve) => {
+            const img = new Image()
+            img.crossOrigin = "anonymous"
+            img.onload = () => {
+              const scale = targetW / img.naturalWidth
+              const w = Math.round(img.naturalWidth * scale)
+              const h = Math.round(img.naturalHeight * scale)
+              const c = document.createElement("canvas")
+              c.width = w
+              c.height = h
+              const cx = c.getContext("2d")
+              if (dim) {
+                cx.globalAlpha = 0.55
+                cx.filter = "grayscale(100%)"
+              }
+              cx.drawImage(img, 0, 0, w, h)
+              const imgData = cx.getImageData(0, 0, w, h)
+              resolve({ width: w, height: h, data: imgData.data })
+            }
+            img.onerror = () => resolve(null)
+            img.src = src
+          })
 
-        const restCanvas = document.createElement("canvas")
-        restCanvas.width = size
-        restCanvas.height = size
-        const rctx = restCanvas.getContext("2d")
-        rctx.beginPath()
-        rctx.arc(size / 2, size / 2, 22, 0, Math.PI * 2)
-        rctx.fillStyle = "oklch(0.55 0.012 60)"
-        rctx.fill()
-        rctx.lineWidth = 3
-        rctx.strokeStyle = "oklch(0.985 0.005 85)"
-        rctx.stroke()
-        rctx.fillStyle = "oklch(0.985 0.005 85)"
-        rctx.font = "bold 11px ui-monospace, monospace"
-        rctx.textAlign = "center"
-        rctx.textBaseline = "middle"
-        rctx.fillText("REST", size / 2, size / 2)
-        const rdata = rctx.getImageData(0, 0, size, size)
-        if (!map.hasImage("fcp-rest"))
-          map.addImage("fcp-rest", { width: size, height: size, data: rdata.data })
+        Promise.all([
+          buildShieldImage("/icon-192.png", 48, false),
+          buildShieldImage("/icon-192.png", 44, true),
+        ]).then(([live, rest]) => {
+          if (live && !map.hasImage("fcp-truck")) map.addImage("fcp-truck", live)
+          if (rest && !map.hasImage("fcp-rest")) map.addImage("fcp-rest", rest)
+          // Trigger re-render
+          if (map.getLayer("fleet-pts")) map.triggerRepaint()
+        })
 
         const fc = {
           type: "FeatureCollection",
@@ -392,6 +387,7 @@ export default function TrackingPage() {
           layout: {
             "icon-image": ["case", ["==", ["get", "status"], "transit"], "fcp-truck", "fcp-rest"],
             "icon-size": 1,
+            "icon-anchor": "bottom",
             "icon-allow-overlap": true,
             "icon-ignore-placement": true,
           },
@@ -501,10 +497,6 @@ export default function TrackingPage() {
 
   return (
     <>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-      />
       <style dangerouslySetInnerHTML={{ __html: MAP_CSS }} />
       <main className="fcp-track-page">
 
