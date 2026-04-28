@@ -14,9 +14,9 @@ const STYLE = `
   --ink: oklch(0.20 0.012 60);
   --ink-2: oklch(0.36 0.01 60);
   --ink-mute: oklch(0.52 0.008 60);
-  --signal: oklch(0.86 0.17 92);
-  --signal-2: oklch(0.78 0.18 78);
-  --signal-deep: oklch(0.55 0.16 65);
+  --signal: oklch(0.65 0.17 240);
+  --signal-2: oklch(0.55 0.18 245);
+  --signal-deep: oklch(0.42 0.18 250);
   --alert: oklch(0.58 0.21 28);
   --green: oklch(0.66 0.13 145);
   --term-bg: oklch(0.18 0.012 65);
@@ -44,14 +44,50 @@ const STYLE = `
 @media (max-width: 768px) { .fcp-shell { padding: 0 20px; } }
 
 /* === HERO ============================================================== */
-.fcp-hero { border-bottom: 1px solid var(--rule); padding: 56px 0 40px; }
-.fcp-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  gap: 56px;
-  align-items: stretch;
+.fcp-hero {
+  position: relative;
+  border-bottom: 1px solid var(--ink);
+  padding: 0;
+  overflow: hidden;
+  min-height: 640px;
+  background: var(--ink);
 }
-@media (max-width: 1024px) { .fcp-hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+.fcp-hero-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.fcp-hero-scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(110deg, oklch(0.18 0.012 65 / 0.82) 0%, oklch(0.18 0.012 65 / 0.45) 55%, oklch(0.18 0.012 65 / 0.20) 100%),
+    linear-gradient(0deg, oklch(0.18 0.012 65 / 0.55), transparent 35%);
+}
+.fcp-hero-inner {
+  position: relative; z-index: 2;
+  padding: 112px 0 88px;
+  min-height: 640px;
+  display: flex; align-items: center;
+}
+.fcp-hero-content {
+  max-width: 760px;
+}
+@media (max-width: 768px) { .fcp-hero-inner { padding: 88px 0 64px; min-height: 560px; } }
+
+.fcp-hero .fcp-kicker { color: oklch(1 0 0 / 0.78); }
+.fcp-hero .fcp-kicker::after { background: oklch(1 0 0 / 0.25); }
+.fcp-hero .fcp-h1 { color: var(--paper); }
+.fcp-hero .fcp-lede { color: oklch(1 0 0 / 0.92); }
+.fcp-hero .fcp-btn-primary { background: var(--paper); color: var(--ink); }
+.fcp-hero .fcp-btn-primary:hover { background: var(--signal); color: var(--paper); }
+.fcp-hero .fcp-btn-ghost { color: var(--paper); border-color: var(--paper); }
+.fcp-hero .fcp-btn-ghost:hover { color: var(--signal); border-color: var(--signal); }
+.fcp-hero .fcp-hero-meta {
+  border-top-color: oklch(1 0 0 / 0.22);
+}
+.fcp-hero .fcp-hero-meta dt { color: oklch(1 0 0 / 0.65); }
+.fcp-hero .fcp-hero-meta dd { color: var(--paper); }
 
 .fcp-kicker {
   font-family: var(--mono);
@@ -82,7 +118,8 @@ const STYLE = `
 .fcp-h1 em {
   font-style: normal;
   background: linear-gradient(transparent 60%, var(--signal) 60% 92%, transparent 92%);
-  padding: 0 0.05em;
+  color: var(--paper);
+  padding: 0 0.08em;
 }
 
 .fcp-lede {
@@ -528,9 +565,15 @@ const STYLE = `
   width: 12px; height: 1px; background: var(--ink);
 }
 .fcp-tier-cta { margin-top: auto; padding-top: 28px; }
-.fcp-tier.fcp-tier-feat { background: var(--signal); padding-top: 84px; }
-.fcp-tier.fcp-tier-feat .fcp-tier-mark { color: var(--ink); font-weight: 600; }
-.fcp-tier.fcp-tier-feat .fcp-tier-list li::before { background: var(--ink); }
+.fcp-tier.fcp-tier-feat { background: var(--signal); padding-top: 84px; color: var(--paper); }
+.fcp-tier.fcp-tier-feat h4,
+.fcp-tier.fcp-tier-feat .fcp-tier-price { color: var(--paper); }
+.fcp-tier.fcp-tier-feat .fcp-tier-price small { color: oklch(1 0 0 / 0.78); }
+.fcp-tier.fcp-tier-feat .fcp-tier-list li { color: oklch(1 0 0 / 0.92); }
+.fcp-tier.fcp-tier-feat .fcp-tier-mark { color: oklch(1 0 0 / 0.85); font-weight: 600; }
+.fcp-tier.fcp-tier-feat .fcp-tier-list li::before { background: var(--paper); }
+.fcp-tier.fcp-tier-feat .fcp-btn-primary { background: var(--paper); color: var(--ink); }
+.fcp-tier.fcp-tier-feat .fcp-btn-primary:hover { background: var(--ink); color: var(--paper); }
 .fcp-tier-feat-flag {
   position: absolute; top: 0; left: 0; right: 0;
   background: var(--ink); color: var(--signal);
@@ -582,18 +625,19 @@ const STYLE = `
 .fcp-demo-play svg { width: 22px; height: 22px; }
 
 /* === Closer CTA ======================================================== */
-.fcp-closer { background: var(--signal); color: var(--ink); padding: 120px 0; border-bottom: 1px solid var(--ink); }
+.fcp-closer { background: var(--signal); color: var(--paper); padding: 120px 0; border-bottom: 1px solid var(--ink); }
 .fcp-closer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; align-items: end; }
 @media (max-width: 900px) { .fcp-closer-grid { grid-template-columns: 1fr; gap: 32px; } }
 .fcp-closer h2 {
   font-family: var(--sans); font-weight: 800;
   font-size: clamp(40px, 5.2vw, 76px); line-height: 1.02; letter-spacing: -0.025em;
-  margin: 0;
+  margin: 0; color: var(--paper);
 }
-.fcp-closer p { color: var(--ink); max-width: 36ch; margin: 0 0 24px; font-size: 17px; }
-.fcp-closer .fcp-btn-primary { background: var(--ink); color: var(--signal); }
+.fcp-closer p { color: oklch(1 0 0 / 0.92); max-width: 36ch; margin: 0 0 24px; font-size: 17px; }
+.fcp-closer .fcp-btn-primary { background: var(--ink); color: var(--paper); }
 .fcp-closer .fcp-btn-primary:hover { background: var(--paper); color: var(--ink); }
-.fcp-closer .fcp-btn-ghost { color: var(--ink); border-color: var(--ink); }
+.fcp-closer .fcp-btn-ghost { color: var(--paper); border-color: var(--paper); }
+.fcp-closer .fcp-btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
 `;
 
 const GALLERY = [
@@ -681,58 +725,45 @@ export default function Home() {
 
         {/* HERO */}
         <section className="fcp-hero">
-          <div className="fcp-shell fcp-hero-grid">
-            <div>
-              <div className="fcp-kicker">Volume 04 / Dispatch &middot; Compliance &middot; Autonomy</div>
-              <h1 className="fcp-h1">
-                The yard runs at <em>four-thirty</em> a.m. We run with it.
-              </h1>
-              <p className="fcp-lede">
-                FleetCommand is the operations layer for trucking companies that move America. Live tracking,
-                AI dispatch, ELD compliance, invoicing, and an outreach engine, working from one console.
-              </p>
-              <div className="fcp-cta-row">
-                <a href="/fcp-dashboard.html" className="fcp-btn-primary">
-                  Start a 7-day trial<span className="fcp-arrow" aria-hidden="true"></span>
-                </a>
-                <a href="#pricing" className="fcp-btn-ghost">View pricing</a>
-              </div>
-              <dl className="fcp-hero-meta">
-                <div><dt>Fleets on the platform</dt><dd>500+</dd></div>
-                <div><dt>Trucks tracked nightly</dt><dd>15,000</dd></div>
-                <div><dt>Uptime, last 12 months</dt><dd>99.9%</dd></div>
-              </dl>
-            </div>
-
-            <aside className="fcp-video-panel" aria-label="FleetCommand operations preview">
-              <span className="fcp-video-corner tl" aria-hidden="true"></span>
-              <span className="fcp-video-corner tr" aria-hidden="true"></span>
-              <span className="fcp-video-corner bl" aria-hidden="true"></span>
-              <span className="fcp-video-corner br" aria-hidden="true"></span>
-              <div className="fcp-term-bar">
-                <span><span className="fcp-dot" aria-hidden="true"></span>FCP-OPS // CONSOLE 04</span>
-                <span>LIVE</span>
-              </div>
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/hero-poster.jpg"
-              >
-                <source media="(min-width: 768px)" src="/hero-960.webm" type="video/webm" />
-                <source media="(min-width: 768px)" src="/hero-960.mp4" type="video/mp4" />
-                <source src="/hero-640.mp4" type="video/mp4" />
-              </video>
-              <div className="fcp-video-foot">
-                <div>
-                  <strong>Live operations footage</strong>
-                  <span>Yard 03 &middot; 04:31 CST &middot; auto-refresh 30s</span>
+          <video
+            className="fcp-hero-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/hero-poster.jpg"
+            aria-hidden="true"
+          >
+            <source media="(min-width: 768px)" src="/hero-960.webm" type="video/webm" />
+            <source media="(min-width: 768px)" src="/hero-960.mp4" type="video/mp4" />
+            <source src="/hero-640.mp4" type="video/mp4" />
+          </video>
+          <div className="fcp-hero-scrim" aria-hidden="true"></div>
+          <div className="fcp-hero-inner">
+            <div className="fcp-shell">
+              <div className="fcp-hero-content">
+                <div className="fcp-kicker">Volume 04 / Dispatch &middot; Compliance &middot; Autonomy</div>
+                <h1 className="fcp-h1">
+                  The yard runs at <em>four-thirty</em> a.m. We run with it.
+                </h1>
+                <p className="fcp-lede">
+                  FleetCommand is the operations layer for trucking companies that move America. Live tracking,
+                  AI dispatch, ELD compliance, invoicing, and an outreach engine, working from one console.
+                </p>
+                <div className="fcp-cta-row">
+                  <a href="/fcp-dashboard.html" className="fcp-btn-primary">
+                    Start a 7-day trial<span className="fcp-arrow" aria-hidden="true"></span>
+                  </a>
+                  <a href="#pricing" className="fcp-btn-ghost">View pricing</a>
                 </div>
-                <span>vol 04</span>
+                <dl className="fcp-hero-meta">
+                  <div><dt>Fleets on the platform</dt><dd>500+</dd></div>
+                  <div><dt>Trucks tracked nightly</dt><dd>15,000</dd></div>
+                  <div><dt>Uptime, last 12 months</dt><dd>99.9%</dd></div>
+                </dl>
               </div>
-            </aside>
+            </div>
           </div>
         </section>
 
