@@ -398,6 +398,11 @@ const STYLE = `
   position: relative;
   aspect-ratio: 16 / 9;
   background: oklch(0.14 0.012 65);
+  background-image:
+    linear-gradient(45deg, oklch(0.18 0.012 65) 25%, transparent 25%),
+    linear-gradient(-45deg, oklch(0.18 0.012 65) 25%, transparent 25%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px;
   overflow: hidden;
 }
 .fcp-gallery-track {
@@ -408,12 +413,19 @@ const STYLE = `
 .fcp-gallery-slide {
   flex: 0 0 100%;
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 .fcp-gallery-slide img {
-  width: 100%; height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   display: block;
+  box-shadow: 0 8px 32px oklch(0.10 0.012 65 / 0.5);
 }
 .fcp-gallery-cap {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 4;
